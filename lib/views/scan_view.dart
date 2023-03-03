@@ -209,13 +209,13 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
             ),
           ),
           _captureControlRowWidget(),
-          // _modeControlRowWidget(),
+          _modeControlRowWidget(),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(
               children: <Widget>[
                 _cameraTogglesRowWidget(),
-                // _thumbnailWidget(),
+                _thumbnailWidget(),
               ],
             ),
           ),
