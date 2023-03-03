@@ -14,6 +14,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../viewmodels/home_viewmodel.dart';
+import 'imgpicked_view.dart';
 
 /// Camera example home widget.
 class CameraExampleHome extends StatefulWidget {
@@ -156,7 +157,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                     const SizedBox(
                       height: 20,
                     ),
-
                     Padding(
                       padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 20),
                       child: Row(
@@ -204,53 +204,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                         ),
                       ],
                     ),
-
-                    // (_homeViewModel.imageFile == null)
-                    //     ? Center(
-                    //         child: Image.asset(
-                    //           ImagePath.iconBgCMND,
-                    //           width: MediaQuery.of(context).size.width,
-                    //         ),
-                    //       )
-                    //     : Center(
-                    //         child: Column(
-                    //           mainAxisSize: MainAxisSize.max,
-                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //           children: [
-                    //             Image.file(File(_homeViewModel.imageFile!.path)),
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               children: [
-                    //                 InkWell(
-                    //                   onTap: () {
-                    //                     _homeViewModel.imageFile = null;
-                    //                     setState(() {});
-                    //                   },
-                    //                   child: Container(
-                    //                     height: 20,
-                    //                     width: 100,
-                    //                     decoration: BoxDecoration(
-                    //                       color: ColorStyle.norange,
-                    //                       borderRadius: BorderRadius.circular(10),
-                    //                     ),
-                    //                     child: Center(child: Text("Chụp lại")),
-                    //                   ),
-                    //                 ),
-                    //                 const Spacer(),
-                    //                 Container(
-                    //                   height: 20,
-                    //                   width: 100,
-                    //                   decoration: BoxDecoration(
-                    //                     color: ColorStyle.pinkBg,
-                    //                     borderRadius: BorderRadius.circular(10),
-                    //                   ),
-                    //                   child: Center(child: Text("Dùng ảnh này")),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
                     Padding(
                       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.9),
                       child: Container(
@@ -570,17 +523,19 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         IconButton(
-          icon: const Icon(Icons.camera_alt),
-          color: Colors.blue,
-          onPressed: (){cameraController != null &&
-              cameraController.value.isInitialized &&
-              !cameraController.value.isRecordingVideo
-              ? onTakePictureButtonPressed
-              : null;
-
-            print("asdasd");
-          }
-        ),
+            icon: const Icon(Icons.camera_alt),
+            color: Colors.blue,
+            onPressed: () {
+              cameraController != null &&
+                      cameraController.value.isInitialized &&
+                      !cameraController.value.isRecordingVideo
+                  ? onTakePictureButtonPressed
+                  : null;
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ImgPick()),
+              );
+            }),
       ],
     );
   }
