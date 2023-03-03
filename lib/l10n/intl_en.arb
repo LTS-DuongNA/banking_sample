@@ -1,0 +1,9 @@
+{
+  "ok": "OK",
+  "notification": "Notification",
+  "error": "Error",
+  "warning": "Warning",
+  "exit_app_message": "Exit",
+  "yes": "Yes",
+  "no": "No"
+}
