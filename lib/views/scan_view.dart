@@ -106,7 +106,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
           onNewCameraSelected(cameraDescription);
         }
       }
-
     });
   }
 
@@ -134,92 +133,136 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
       onNewCameraSelected(cameraController.description);
     }
   }
+
   // #enddocregion AppLifecycle
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(
-                  color: controller != null && controller!.value.isRecordingVideo ? Colors.redAccent : Colors.grey,
-                  width: 3.0,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Center(
-                  child: Stack(
-                    children: [
-                      _cameraPreviewWidget(),
-                      (_homeViewModel.imageFile == null)
-                          ? Center(
-                              child: Image.asset(
-                                ImagePath.iconBgCMND,
-                                width: MediaQuery.of(context).size.width,
-                              ),
-                            )
-                          : Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image.file(File(_homeViewModel.imageFile!.path)),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          _homeViewModel.imageFile = null;
-                                          setState(() {});
-                                        },
-                                        child: Container(
-                                          height: 20,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            color: ColorStyle.norange,
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Center(child: Text("Chụp lại")),
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Container(
-                                        height: 20,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: ColorStyle.pinkBg,
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Center(child: Text("Dùng ảnh này")),
-                                      ),
-                                    ],
+      body: Padding(
+        padding: EdgeInsets.only(left: 0, right: 0, top: 0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: Stack(
+                  children: [
+                    _cameraPreviewWidget(),
+                    Container(
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 20),
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Go back",
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
+                    ),
+                    Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 60),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: Stack(
+                              children: [
+                                _cameraPreviewWidget(),
+                                RotatedBox(
+                                  quarterTurns: 1,
+                                  child: Center(
+                                    child: Image.asset(
+                                      fit: BoxFit.cover,
+                                      ImagePath.iconBgCMND,
+                                      width: double.infinity,
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                    ],
-                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // (_homeViewModel.imageFile == null)
+                    //     ? Center(
+                    //         child: Image.asset(
+                    //           ImagePath.iconBgCMND,
+                    //           width: MediaQuery.of(context).size.width,
+                    //         ),
+                    //       )
+                    //     : Center(
+                    //         child: Column(
+                    //           mainAxisSize: MainAxisSize.max,
+                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //           children: [
+                    //             Image.file(File(_homeViewModel.imageFile!.path)),
+                    //             Row(
+                    //               mainAxisAlignment: MainAxisAlignment.center,
+                    //               children: [
+                    //                 InkWell(
+                    //                   onTap: () {
+                    //                     _homeViewModel.imageFile = null;
+                    //                     setState(() {});
+                    //                   },
+                    //                   child: Container(
+                    //                     height: 20,
+                    //                     width: 100,
+                    //                     decoration: BoxDecoration(
+                    //                       color: ColorStyle.norange,
+                    //                       borderRadius: BorderRadius.circular(10),
+                    //                     ),
+                    //                     child: Center(child: Text("Chụp lại")),
+                    //                   ),
+                    //                 ),
+                    //                 const Spacer(),
+                    //                 Container(
+                    //                   height: 20,
+                    //                   width: 100,
+                    //                   decoration: BoxDecoration(
+                    //                     color: ColorStyle.pinkBg,
+                    //                     borderRadius: BorderRadius.circular(10),
+                    //                   ),
+                    //                   child: Center(child: Text("Dùng ảnh này")),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    Padding(
+                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.9),
+                      child: Container(
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.grey[700]),
+                          child: _captureControlRowWidget()),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          _captureControlRowWidget(),
-          _modeControlRowWidget(),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              children: <Widget>[
-                _cameraTogglesRowWidget(),
-                _thumbnailWidget(),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -239,20 +282,23 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
       );
     } else {
       return Listener(
-        onPointerDown: (_) => _pointers++,
-        onPointerUp: (_) => _pointers--,
-        child: CameraPreview(
-          controller!,
-          child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onScaleStart: _handleScaleStart,
-              onScaleUpdate: _handleScaleUpdate,
-              onTapDown: (TapDownDetails details) => onViewFinderTap(details, constraints),
-            );
-          }),
-        ),
-      );
+          onPointerDown: (_) => _pointers++,
+          onPointerUp: (_) => _pointers--,
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000), border: Border.all(width: 0)),
+            height: MediaQuery.of(context).size.height,
+            child: CameraPreview(
+              controller!,
+              child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onScaleStart: _handleScaleStart,
+                  onScaleUpdate: _handleScaleUpdate,
+                  onTapDown: (TapDownDetails details) => onViewFinderTap(details, constraints),
+                );
+              }),
+            ),
+          ));
     }
   }
 
@@ -526,47 +572,14 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
         IconButton(
           icon: const Icon(Icons.camera_alt),
           color: Colors.blue,
-          onPressed: cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  !cameraController.value.isRecordingVideo
+          onPressed: (){cameraController != null &&
+              cameraController.value.isInitialized &&
+              !cameraController.value.isRecordingVideo
               ? onTakePictureButtonPressed
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.videocam),
-          color: Colors.blue,
-          onPressed: cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  !cameraController.value.isRecordingVideo
-              ? onVideoRecordButtonPressed
-              : null,
-        ),
-        IconButton(
-          icon: cameraController != null && cameraController.value.isRecordingPaused
-              ? const Icon(Icons.play_arrow)
-              : const Icon(Icons.pause),
-          color: Colors.blue,
-          onPressed: cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  cameraController.value.isRecordingVideo
-              ? (cameraController.value.isRecordingPaused)
-                  ? onResumeButtonPressed
-                  : onPauseButtonPressed
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.stop),
-          color: Colors.red,
-          onPressed: cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  cameraController.value.isRecordingVideo
-              ? onStopButtonPressed
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.pause_presentation),
-          color: cameraController != null && cameraController.value.isPreviewPaused ? Colors.red : Colors.blue,
-          onPressed: cameraController == null ? null : onPausePreviewButtonPressed,
+              : null;
+
+            print("asdasd");
+          }
         ),
       ],
     );
