@@ -6,14 +6,14 @@ import '../consts/colors/colors.dart';
 import '../consts/images/image_path.dart';
 import '../viewmodels/home_viewmodel.dart';
 
-class ImgPick extends StatefulWidget {
-  const ImgPick({Key? key}) : super(key: key);
+class EditImgPick extends StatefulWidget {
+  const EditImgPick({Key? key}) : super(key: key);
 
   @override
-  State<ImgPick> createState() => _ImgPickState();
+  State<EditImgPick> createState() => _EditImgPickState();
 }
 
-class _ImgPickState extends State<ImgPick> {
+class _EditImgPickState extends State<EditImgPick> {
   final HomeViewModel _homeViewModel = HomeViewModel();
 
   @override
@@ -121,47 +121,6 @@ class _ImgPickState extends State<ImgPick> {
                     ),
                   ],
                 ),
-
-          // Center(
-          // Center(
-          //         child: Column(
-          //           mainAxisSize: MainAxisSize.max,
-          //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //           children: [
-          //             Image.file(File(_homeViewModel.imageFile!.path)),
-          //             Row(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 InkWell(
-          //                   onTap: () {
-          //                     _homeViewModel.imageFile = null;
-          //                     setState(() {});
-          //                   },
-          //                   child: Container(
-          //                     height: 20,
-          //                     width: 100,
-          //                     decoration: BoxDecoration(
-          //                       color: ColorStyle.norange,
-          //                       borderRadius: BorderRadius.circular(10),
-          //                     ),
-          //                     child: Center(child: Text("Chụp lại")),
-          //                   ),
-          //                 ),
-          //                 const Spacer(),
-          //                 Container(
-          //                   height: 20,
-          //                   width: 100,
-          //                   decoration: BoxDecoration(
-          //                     color: ColorStyle.pinkBg,
-          //                     borderRadius: BorderRadius.circular(10),
-          //                   ),
-          //                   child: Center(child: Text("Dùng ảnh này")),
-          //                 ),
-          //               ],
-          //             ),
-          //           ],
-          //         ),
-          //       ),
         ],
       ),
     );

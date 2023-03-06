@@ -14,8 +14,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../viewmodels/home_viewmodel.dart';
+import 'edit_img_view.dart';
 import 'home_view.dart';
-import 'imgpicked_view.dart';
 
 /// Camera example home widget.
 class CameraExampleHome extends StatefulWidget {
@@ -684,7 +684,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const ImgPick()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const EditImgPick()));
         setState(() {
           _homeViewModel.imageFile = file;
           videoController?.dispose();
