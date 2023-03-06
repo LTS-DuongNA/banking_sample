@@ -536,13 +536,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                     !cameraController.value.isRecordingVideo
                 ? onTakePictureButtonPressed
                 : null
-
-            // onPressed: () {
-            //   Navigator.push(context, MaterialPageRoute(builder: (context) => const ImgPick()));
-            //   cameraController != null && cameraController.value.isInitialized && !cameraController.value.isRecordingVideo
-            //       ? onTakePictureButtonPressed
-            //       : null;
-            // },
             ),
       ],
     );
@@ -690,9 +683,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
           videoController?.dispose();
           videoController = null;
         });
-        if (file != null) {
-          showInSnackBar('Picture saved to ${file.path}');
-        }
+        // if (file != null) {
+        //   showInSnackBar('Picture saved to ${file.path}');
+        // }
       }
     });
   }
