@@ -5,6 +5,7 @@ import 'dart:io';
 import '../consts/colors/colors.dart';
 import '../consts/images/image_path.dart';
 import '../viewmodels/home_viewmodel.dart';
+import 'form_img.dart';
 
 class EditImgPick extends StatefulWidget {
   const EditImgPick({Key? key}) : super(key: key);
@@ -44,29 +45,29 @@ class _EditImgPickState extends State<EditImgPick> {
                       height: MediaQuery.of(context).size.height,
                     ),
                     Positioned(
-                      top: MediaQuery.of(context).size.height * 0.065,
-                      left: MediaQuery.of(context).size.width * 0.05,
+                      top: MediaQuery.of(context).size.height * 0.07,
+                      left: MediaQuery.of(context).size.width * 0.06,
                       child: Container(
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         decoration: const BoxDecoration(
                           border: Border(
-                            top: BorderSide(color: Colors.white, width: 4),
-                            left: BorderSide(color: Colors.white, width: 4),
+                            top: BorderSide(color: Colors.white, width: 2),
+                            left: BorderSide(color: Colors.white, width: 2),
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      bottom: MediaQuery.of(context).size.height * 0.125,
-                      right: MediaQuery.of(context).size.width * 0.05,
+                      bottom: MediaQuery.of(context).size.height * 0.131,
+                      right: MediaQuery.of(context).size.width * 0.06,
                       child: Container(
-                        width: 30,
-                        height: 30,
+                        width: 20,
+                        height: 20,
                         decoration: const BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 4),
-                            right: BorderSide(color: Colors.white, width: 4),
+                            bottom: BorderSide(color: Colors.white, width: 2),
+                            right: BorderSide(color: Colors.white, width: 2),
                           ),
                         ),
                       ),
@@ -108,13 +109,18 @@ class _EditImgPickState extends State<EditImgPick> {
                             ),
                           ),
                           const Spacer(),
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            child: const Center(
-                                child: Text(
-                              "Choose",
-                              style: TextStyle(color: Colors.amber, fontSize: 17),
-                            )),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const FormWithImg()));
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              child: const Center(
+                                  child: Text(
+                                "Choose",
+                                style: TextStyle(color: Colors.amber, fontSize: 17),
+                              )),
+                            ),
                           ),
                         ],
                       ),
