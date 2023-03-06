@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../consts/colors/colors.dart';
 import '../viewmodels/home_viewmodel.dart';
 
 class FormWithImg extends StatefulWidget {
@@ -34,7 +35,7 @@ class _FormWithImgState extends State<FormWithImg> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.purple.withOpacity(0.1),
+              color: ColorStyle.pinkBg,
             ),
             child: Padding(
               padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, left: 20, right: 20, bottom: 20),
@@ -47,7 +48,7 @@ class _FormWithImgState extends State<FormWithImg> {
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
                   const Text(
-                    'Nhập thông tin CMTND',
+                    'Nhập thông tin CMND',
                     style: TextStyle(fontSize: 16),
                   )
                 ],
@@ -126,7 +127,7 @@ class _FormWithImgState extends State<FormWithImg> {
                             width: double.infinity,
                             height: 50,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20), color: Colors.purple.withOpacity(0.2)),
+                                borderRadius: BorderRadius.circular(20), color: ColorStyle.pinkBg),
                             child: InkWell(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
