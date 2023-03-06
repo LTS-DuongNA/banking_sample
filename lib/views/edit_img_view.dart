@@ -39,37 +39,9 @@ class _EditImgPickState extends State<EditImgPick> {
                       ),
                     ),
                     Container(
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withOpacity(0.6),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.065,
-                      left: MediaQuery.of(context).size.width * 0.05,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(color: Colors.white, width: 4),
-                            left: BorderSide(color: Colors.white, width: 4),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: MediaQuery.of(context).size.height * 0.125,
-                      right: MediaQuery.of(context).size.width * 0.05,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.white, width: 4),
-                            right: BorderSide(color: Colors.white, width: 4),
-                          ),
-                        ),
-                      ),
                     ),
                     Stack(
                       children: [
@@ -77,7 +49,7 @@ class _EditImgPickState extends State<EditImgPick> {
                           child: Container(
                             decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.white)),
                             width: MediaQuery.of(context).size.width * 0.85,
-                            height: MediaQuery.of(context).size.height * 0.78,
+                            height: MediaQuery.of(context).size.height * 0.85,
                             margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                             child: Image.file(
                               fit: BoxFit.cover,
@@ -88,7 +60,7 @@ class _EditImgPickState extends State<EditImgPick> {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.9),
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.95),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
