@@ -95,7 +95,7 @@ class _EditImgPickState extends State<EditImgPick> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const CameraApp()));
+                              Navigator.pop(context);
                               _homeViewModel.imageFile = null;
                               setState(() {});
                             },

@@ -160,28 +160,28 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 20),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                            },
-                            child: const Text(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                        },
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
                               "Go back",
                               style: TextStyle(color: Colors.white, fontSize: 17),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          )
-                        ],
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Stack(
