@@ -62,22 +62,18 @@ class _FormWithImgState extends State<FormWithImg> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.file(File(_homeViewModel.imageFile!.path)),
-                              )
-                            ],
-                          ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.file(File(_homeViewModel.imageFile!.path)),
                         ),
-                        inputWihtTitle("Số CMND", "000...", "Nhập số CMND", cmndNumber),
                         const SizedBox(
                           height: 20,
                         ),
-                        inputWihtTitle("Họ và tên", "Nguyen...", "Nhập họ và tên", name),
+                        inputWihtTitle("Số CMND", "000...", "Nhập số CMND", cmndNumber, TextInputType.number),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        inputWihtTitle("Họ và tên", "...", "Nhập họ và tên", name, TextInputType.text),
                         const SizedBox(
                           height: 20,
                         ),
@@ -88,6 +84,7 @@ class _FormWithImgState extends State<FormWithImg> {
                         TextField(
                           controller: dateinput, //editing controller of this TextField
                           decoration: InputDecoration(
+                            hintText: 'dd-MM-yyyy',
                             filled: true,
                             fillColor: Colors.grey.withOpacity(0.1),
                             isDense: true,
@@ -117,11 +114,12 @@ class _FormWithImgState extends State<FormWithImg> {
                         const SizedBox(
                           height: 20,
                         ),
-                        inputWihtTitle("Nguyên quán", "Nguyen...", "Nhập nguyên quán", hometown),
+                        inputWihtTitle("Nguyên quán", "...", "Nhập nguyên quán", hometown, TextInputType.text),
                         const SizedBox(
                           height: 20,
                         ),
-                        inputWihtTitle("Nơi ĐKHK thường trú", "...", "Nhập nơi ĐKHK thường trú", regisadd),
+                        inputWihtTitle(
+                            "Nơi ĐKHK thường trú", "...", "Nhập nơi ĐKHK thường trú", regisadd, TextInputType.text),
                         Padding(
                           padding: const EdgeInsets.only(top: 30, bottom: 30),
                           child: Container(
@@ -132,7 +130,14 @@ class _FormWithImgState extends State<FormWithImg> {
                             child: InkWell(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  print('gui tc');
+                                  Map<String, dynamic> data = {
+                                    "SỐ CMND": cmndNumber.text,
+                                    "Họ tên": name.text,
+                                    "Sinh ngày": dateinput.text,
+                                    "Nguyên quán": hometown.text,
+                                    "Nơi ĐKHK thường trú": regisadd.text
+                                  };
+                                  print(data);
                                 }
                               },
                               child: const Center(
@@ -153,7 +158,8 @@ class _FormWithImgState extends State<FormWithImg> {
     );
   }
 
-  Widget inputWihtTitle(String? title, String? hintext, String? validateText, TextEditingController controller) {
+  Widget inputWihtTitle(
+      String? title, String? hintext, String? validateText, TextEditingController controller, TextInputType? type) {
     return Column(
       children: [
         Align(alignment: Alignment.bottomLeft, child: Text(title ?? '')),
@@ -161,6 +167,7 @@ class _FormWithImgState extends State<FormWithImg> {
           height: 7,
         ),
         TextFormField(
+          keyboardType: type,
           controller: controller,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -169,6 +176,7 @@ class _FormWithImgState extends State<FormWithImg> {
             return null;
           },
           decoration: InputDecoration(
+            hintText: hintext ?? 's',
             filled: true,
             fillColor: Colors.grey.withOpacity(0.1),
             isDense: true,
