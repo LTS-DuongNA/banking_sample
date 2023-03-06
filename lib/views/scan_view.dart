@@ -14,6 +14,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../viewmodels/home_viewmodel.dart';
+import 'home_view.dart';
 import 'imgpicked_view.dart';
 
 /// Camera example home widget.
@@ -160,19 +161,24 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                     Padding(
                       padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 20),
                       child: Row(
-                        children: const [
-                          Icon(
+                        children: [
+                          const Icon(
                             Icons.arrow_back_ios,
                             color: Colors.white,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Text(
-                            "Go back",
-                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                            },
+                            child: const Text(
+                              "Go back",
+                              style: TextStyle(color: Colors.white, fontSize: 17),
+                            ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           )
                         ],
@@ -525,17 +531,19 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
         IconButton(
             icon: const Icon(Icons.camera_alt),
             color: Colors.blue,
-            onPressed: () {
-              cameraController != null &&
-                      cameraController.value.isInitialized &&
-                      !cameraController.value.isRecordingVideo
-                  ? onTakePictureButtonPressed
-                  : null;
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ImgPick()),
-              );
-            }),
+            onPressed: cameraController != null &&
+                    cameraController.value.isInitialized &&
+                    !cameraController.value.isRecordingVideo
+                ? onTakePictureButtonPressed
+                : null
+
+            // onPressed: () {
+            //   Navigator.push(context, MaterialPageRoute(builder: (context) => const ImgPick()));
+            //   cameraController != null && cameraController.value.isInitialized && !cameraController.value.isRecordingVideo
+            //       ? onTakePictureButtonPressed
+            //       : null;
+            // },
+            ),
       ],
     );
   }
@@ -676,6 +684,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const ImgPick()));
         setState(() {
           _homeViewModel.imageFile = file;
           videoController?.dispose();
