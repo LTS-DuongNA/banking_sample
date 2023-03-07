@@ -74,26 +74,6 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   int _pointers = 0;
   File? imageFile;
 
-  _getFromGallery(XFile? file) async {
-    _cropImage(file!);
-  }
-
-  Future<File?> _cropImage(XFile file) async {
-    final File? croppedImage = await ImageCropper().cropImage(
-      sourcePath: file.path,
-      maxWidth: 1080,
-      maxHeight: 1080,
-    );
-
-    if (croppedImage != null) {
-      _homeViewModel.imageFile = croppedImage;
-      if (_homeViewModel.imageFile != null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const FormWithImg()));
-      }
-      setState(() {});
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -152,10 +132,39 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     }
 
     if (state == AppLifecycleState.inactive) {
-      cameraController.dispose();
+      // cameraController.dispose();
     } else if (state == AppLifecycleState.resumed) {
       onNewCameraSelected(cameraController.description);
     }
+  }
+
+  Future<File?> _cropImage(XFile file) async {
+    final File? croppedImage = await ImageCropper().cropImage(
+      androidUiSettings: const AndroidUiSettings(
+          toolbarTitle: 'Edit',
+          toolbarColor: ColorStyle.pinkBg,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor: ColorStyle.pinkBg,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false),
+      iosUiSettings: const IOSUiSettings(
+        title: 'Edit',
+      ),
+      sourcePath: file.path,
+      maxWidth: 1080,
+      maxHeight: 1080,
+      compressFormat: ImageCompressFormat.jpg,
+    );
+
+    if (croppedImage != null) {
+
+      _homeViewModel.imageFile = croppedImage;
+      if (_homeViewModel.imageFile != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FormWithImg()));
+      }
+      setState(() {});
+    }
+    return null;
   }
 
   // #enddocregion AppLifecycle
@@ -699,8 +708,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     takePicture().then((XFile? file) {
       if (mounted) {
         setState(() {
-          // _homeViewModel.imageFile = file;
-          _getFromGallery(file);
+          _cropImage(file!);
           videoController?.dispose();
           videoController = null;
         });
