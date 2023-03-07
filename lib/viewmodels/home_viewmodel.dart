@@ -18,7 +18,7 @@ class HomeViewModel extends BaseViewModel {
 
   List<CameraDescription> cameras = <CameraDescription>[];
 
-  XFile? imageFile;
+  File? imageFile;
   XFile? videoFile;
 
   @override

@@ -14,8 +14,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../viewmodels/home_viewmodel.dart';
-import 'edit_img_view.dart';
+import 'form_img.dart';
 import 'home_view.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 /// Camera example home widget.
 class CameraExampleHome extends StatefulWidget {
@@ -71,6 +72,27 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
 
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
+  File? imageFile;
+
+  _getFromGallery(XFile? file) async {
+    _cropImage(file!);
+  }
+
+  Future<File?> _cropImage(XFile file) async {
+    final File? croppedImage = await ImageCropper().cropImage(
+      sourcePath: file.path,
+      maxWidth: 1080,
+      maxHeight: 1080,
+    );
+
+    if (croppedImage != null) {
+      _homeViewModel.imageFile = croppedImage;
+      if (_homeViewModel.imageFile != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const FormWithImg()));
+      }
+      setState(() {});
+    }
+  }
 
   @override
   void initState() {
@@ -535,8 +557,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                     cameraController.value.isInitialized &&
                     !cameraController.value.isRecordingVideo
                 ? onTakePictureButtonPressed
-                : null
-            ),
+                : null),
       ],
     );
   }
@@ -677,9 +698,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const EditImgPick()));
         setState(() {
-          _homeViewModel.imageFile = file;
+          // _homeViewModel.imageFile = file;
+          _getFromGallery(file);
           videoController?.dispose();
           videoController = null;
         });
