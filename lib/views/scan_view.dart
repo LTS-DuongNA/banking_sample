@@ -181,7 +181,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                       height: 20,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 20),
+                      padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top + 20, bottom: 20),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));

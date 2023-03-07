@@ -38,7 +38,7 @@ class _FormWithImgState extends State<FormWithImg> {
               color: ColorStyle.pinkBg,
             ),
             child: Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top, left: 20, right: 20, bottom: 20),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20, left: 20, right: 20, bottom: 20),
               child: Row(
                 children: [
                   IconButton(
@@ -126,8 +126,8 @@ class _FormWithImgState extends State<FormWithImg> {
                           child: Container(
                             width: double.infinity,
                             height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20), color: ColorStyle.pinkBg),
+                            decoration:
+                                BoxDecoration(borderRadius: BorderRadius.circular(20), color: ColorStyle.pinkBg),
                             child: InkWell(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
