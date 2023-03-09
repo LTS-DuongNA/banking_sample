@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bank_application/api/api_repository.dart';
 import 'package:bank_application/utils/expansion_panel_fix.dart';
 import 'package:bank_application/views/scan_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,8 @@ class _HomeView extends State<HomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   StreamSubscription<String?>? apiResponseListener;
   final ScrollController _scrollController = ScrollController();
+
+  APIRepository aPIRepositoryImpl = APIRepositoryImpl();
 
   double _scrollPercent = 100.0;
   final List<bool> _expand = [];
@@ -390,33 +393,38 @@ class _HomeView extends State<HomeView> {
             ),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage(ImagePath.iconBgImg1),
-              fit: BoxFit.cover,
-            ),
-            border: Border.all(width: 1.0, color: ColorStyle.nGray),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Icon(
-                size: 40,
-                Icons.sports_motorsports,
-                color: Colors.black54,
+        InkWell(
+          onTap: () {
+            // aPIRepositoryImpl.getInfoFromImg();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage(ImagePath.iconBgImg1),
+                fit: BoxFit.cover,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Bảo hiểm mô tô"),
-              )
-            ],
+              border: Border.all(width: 1.0, color: ColorStyle.nGray),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(
+                  size: 40,
+                  Icons.sports_motorsports,
+                  color: Colors.black54,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Bảo hiểm mô tô"),
+                )
+              ],
+            ),
           ),
         ),
         Container(

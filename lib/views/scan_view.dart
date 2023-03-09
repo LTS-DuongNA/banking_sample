@@ -13,10 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
+import '../api/api_repository.dart';
+import '../model/cmnd_data.dart';
 import '../viewmodels/home_viewmodel.dart';
 import 'form_img.dart';
 import 'home_view.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// Camera example home widget.
 class CameraExampleHome extends StatefulWidget {
@@ -51,6 +54,7 @@ void _logError(String code, String? message) {
 }
 
 class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindingObserver, TickerProviderStateMixin {
+  APIRepository aPIRepositoryImpl = APIRepositoryImpl();
   CameraController? controller;
   final HomeViewModel _homeViewModel = HomeViewModel();
   VideoPlayerController? videoController;
@@ -160,7 +164,20 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
 
       _homeViewModel.imageFile = croppedImage;
       if (_homeViewModel.imageFile != null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FormWithImg()));
+        CMND_Data? data = await aPIRepositoryImpl.getInfoFromImg();
+        if (data != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FormWithImg(data)));
+        } else {
+          Fluttertoast.showToast(
+              msg: "Facing issue when calling AI service",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+        }
       }
       setState(() {});
     }
@@ -225,14 +242,11 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
                             child: Stack(
                               children: [
                                 _cameraPreviewWidget(),
-                                RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Center(
-                                    child: Image.asset(
-                                      fit: BoxFit.cover,
-                                      ImagePath.iconBgCMND,
-                                      width: double.infinity,
-                                    ),
+                                Center(
+                                  child: Image.asset(
+                                    fit: BoxFit.cover,
+                                    ImagePath.iconBgCMND,
+                                    width: double.infinity,
                                   ),
                                 ),
                               ],

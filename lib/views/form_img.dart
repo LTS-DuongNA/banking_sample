@@ -1,12 +1,14 @@
 import 'dart:io';
 
+import 'package:bank_application/model/cmnd_data.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../consts/colors/colors.dart';
 import '../viewmodels/home_viewmodel.dart';
 
 class FormWithImg extends StatefulWidget {
-  const FormWithImg({Key? key}) : super(key: key);
+  final CMND_Data dataCMND;
+  const FormWithImg(this.dataCMND, {super.key});
 
   @override
   State<FormWithImg> createState() => _FormWithImgState();
@@ -25,6 +27,13 @@ class _FormWithImgState extends State<FormWithImg> {
   void initState() {
     dateinput.text = ""; //set the initial value of text field
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      cmndNumber.text = "${widget.dataCMND.data?.cmnd_num}";
+      name.text = "${widget.dataCMND.data?.cmnd_name}";
+      hometown.text = "${widget.dataCMND.data?.cmnd_home}";
+      dateinput.text = "${widget.dataCMND.data?.cmnd_dob}";
+      regisadd.text = "${widget.dataCMND.data?.cmnd_house}";
+    });
   }
 
   @override
