@@ -14,6 +14,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
 import '../viewmodels/home_viewmodel.dart';
+import 'edit_img.dart';
 import 'form_img.dart';
 import 'home_view.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -138,34 +139,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     }
   }
 
-  Future<File?> _cropImage(XFile file) async {
-    final File? croppedImage = await ImageCropper().cropImage(
-      androidUiSettings: const AndroidUiSettings(
-          toolbarTitle: 'Edit',
-          toolbarColor: ColorStyle.pinkBg,
-          toolbarWidgetColor: Colors.white,
-          activeControlsWidgetColor: ColorStyle.pinkBg,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false),
-      iosUiSettings: const IOSUiSettings(
-        title: 'Edit',
-      ),
-      sourcePath: file.path,
-      maxWidth: 1080,
-      maxHeight: 1080,
-      compressFormat: ImageCompressFormat.jpg,
-    );
 
-    if (croppedImage != null) {
-
-      _homeViewModel.imageFile = croppedImage;
-      if (_homeViewModel.imageFile != null) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FormWithImg()));
-      }
-      setState(() {});
-    }
-    return null;
-  }
 
   // #enddocregion AppLifecycle
 
@@ -707,8 +681,10 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   void onTakePictureButtonPressed() {
     takePicture().then((XFile? file) {
       if (mounted) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => EditImgPick()));
+
         setState(() {
-          _cropImage(file!);
+          _homeViewModel.imageFile = file ;
           videoController?.dispose();
           videoController = null;
         });

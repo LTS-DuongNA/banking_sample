@@ -40,6 +40,7 @@ class _HomeView extends State<HomeView> {
 
     //set orientation is landscape
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _homeViewModel.getListPark();
       _scrollController.addListener(() {
         _expand[0] = false;
         setState(() {});

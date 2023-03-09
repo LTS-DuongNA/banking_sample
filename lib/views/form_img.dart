@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,10 +22,24 @@ class _FormWithImgState extends State<FormWithImg> {
   TextEditingController regisadd = TextEditingController();
   TextEditingController dateinput = TextEditingController();
 
+  StreamSubscription<dynamic>? apiLeaveListListener = null;
+
   @override
   void initState() {
-    dateinput.text = ""; //set the initial value of text field
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      listener();
+    });
+    dateinput.text = "";
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void listener() {
+    //call to view model
   }
 
   @override
@@ -138,6 +153,7 @@ class _FormWithImgState extends State<FormWithImg> {
                                     "Nguyên quán": hometown.text,
                                     "Nơi ĐKHK thường trú": regisadd.text
                                   };
+                                  _homeViewModel.sendCmnd(data);
                                   print(data);
                                 }
                               },
