@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:bank_application/api/api_repository.dart';
 import 'package:bank_application/utils/expansion_panel_fix.dart';
+import 'package:bank_application/views/scan_overview.dart';
 import 'package:bank_application/views/scan_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../consts/images/image_path.dart';
 import '../../viewmodels/home_viewmodel.dart';
 import '../consts/colors/colors.dart';
+import '../service/ocr_service.dart';
 import '../utils/alert.dart';
 import '../utils/exit_app_scope.dart';
 import '../utils/observable_serivce.dart';
@@ -255,7 +257,7 @@ class _HomeView extends State<HomeView> {
                               width: MediaQuery.of(context).size.width,
                               fit: BoxFit.cover,
                               imageUrl:
-                              "https://t3.ftcdn.net/jpg/02/79/69/64/360_F_279696405_1IXbP3faWLV5VKmUg9NI2cFSgXGGVUQM.jpg",
+                                  "https://t3.ftcdn.net/jpg/02/79/69/64/360_F_279696405_1IXbP3faWLV5VKmUg9NI2cFSgXGGVUQM.jpg",
                               progressIndicatorBuilder: (context, url, downloadProgress) =>
                                   CircularProgressIndicator(value: downloadProgress.progress),
                               errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -349,19 +351,15 @@ class _HomeView extends State<HomeView> {
       crossAxisCount: 2,
       children: <Widget>[
         InkWell(
-          onTap: () async {
-            try {
-              WidgetsFlutterBinding.ensureInitialized();
-              _homeViewModel.cameras = await availableCameras();
-            } on CameraException catch (e) {
-              print(e.code);
-              print(e.description);
-            }
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CameraApp()),
-            );
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) {
+                  return ScanOverview();
+                },
+                  settings: RouteSettings(name: 'ScanOverview',),
+                )).then((value) => () {
+                  print("ScanOverview closed");
+            });
           },
           child: Container(
             decoration: BoxDecoration(
@@ -381,21 +379,24 @@ class _HomeView extends State<HomeView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 Icon(
-                  size: 40,
+                  size: 80,
                   Icons.car_crash,
-                  color: Colors.black54,
+                  color: Colors.blue,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Bảo hiểm xe hơi"),
-                )
+                Text(
+                  "Bảo hiểm xe hơi",
+                  style: TextStyle(color: Colors.blue),
+                ),
               ],
             ),
           ),
         ),
         InkWell(
           onTap: () {
-            // aPIRepositoryImpl.getInfoFromImg();
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => ExampleList()),
+            // );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -415,14 +416,14 @@ class _HomeView extends State<HomeView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 Icon(
-                  size: 40,
+                  size: 80,
                   Icons.sports_motorsports,
-                  color: Colors.black54,
+                  color: Colors.blue,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Bảo hiểm mô tô"),
-                )
+                Text(
+                  "Bảo hiểm mô tô",
+                  style: TextStyle(color: Colors.blue),
+                ),
               ],
             ),
           ),
@@ -445,14 +446,14 @@ class _HomeView extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
               Icon(
-                size: 40,
+                size: 80,
                 Icons.health_and_safety,
-                color: Colors.black54,
+                color: Colors.blue,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Bảo hiểm nhân thọ"),
-              )
+              Text(
+                "Bảo hiểm nhân thọ",
+                style: TextStyle(color: Colors.blue),
+              ),
             ],
           ),
         ),
@@ -474,14 +475,14 @@ class _HomeView extends State<HomeView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
               Icon(
-                size: 40,
+                size: 80,
                 Icons.add_box_rounded,
-                color: Colors.black54,
+                color: Colors.blue,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Bảo hiểm y tế"),
-              )
+              Text(
+                "Bảo hiểm y tế",
+                style: TextStyle(color: Colors.blue),
+              ),
             ],
           ),
         ),

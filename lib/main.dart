@@ -15,10 +15,14 @@ import 'consts/colors/colors.dart';
 import 'consts/strings/str_const.dart';
 import 'generated/l10n.dart';
 import 'localization/language_constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   runZonedGuarded<Future<void>>(() async {
+
     WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp();
 
     await PrefUtil.init();
 
