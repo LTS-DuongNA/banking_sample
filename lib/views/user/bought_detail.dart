@@ -45,6 +45,32 @@ class _BoughtDetailState extends State<BoughtDetail> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 20, top: MediaQuery.of(context).padding.top, bottom: 10),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Go back",
+                          style: TextStyle(color: Colors.black, fontSize: 17),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +88,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           // TODO: BOHT: Thay anh url tu network ve
-                          child: Image.file(File(widget.dataDetail?.thongTinCaNhan?.urlFront ?? '')),
+                          child: Image.network(widget.dataDetail?.thongTinCaNhan?.urlFront ?? ''),
                         ),
                       ),
                     ),
@@ -76,7 +102,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.file(File(widget.dataDetail?.thongTinCaNhan?.urlBehind ?? '')),
+                          child: Image.network(widget.dataDetail?.thongTinCaNhan?.urlBehind ?? ''),
                         ),
                       ),
                     ),

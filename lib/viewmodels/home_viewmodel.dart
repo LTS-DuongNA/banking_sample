@@ -28,6 +28,7 @@ class HomeViewModel extends BaseViewModel {
   String imgFrontUrl = "";
   XFile? imgBack;
   String imgBackUrl = "";
+  String emailSave = '';
 
   final _myRepo = HomeRepository();
   String textsRecognizedFromIng = "";
@@ -53,9 +54,8 @@ class HomeViewModel extends BaseViewModel {
   List<ListSaveModel>? saveList;
 
   getListSave() {
-    dynamic data = "dev.duong.nguyenanh@gmail.com";
     Map<String, dynamic> params = {
-      'email': data,
+      'email': emailSave,
     };
     _myRepo.getListSaveData(params).then((value) {
       _observableService.listSaveController.sink.add(value);

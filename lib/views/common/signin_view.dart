@@ -37,6 +37,7 @@ class _SignInView extends State<SignInView> {
   TextEditingController passwordController = TextEditingController();
 
   double getSmallDiameter(BuildContext context) => MediaQuery.of(context).size.width * 2 / 3;
+
   double getBiglDiameter(BuildContext context) => MediaQuery.of(context).size.width * 7 / 8;
 
   @override
@@ -183,6 +184,7 @@ class _SignInView extends State<SignInView> {
                               if (userCredential.user!.emailVerified) {
                                 /// user
                                 // TODO: BOHT: Luu useremail o day => Viewmodel.
+                                _homeViewModel.emailSave = emailController.text;
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(
                                       builder: (_) {

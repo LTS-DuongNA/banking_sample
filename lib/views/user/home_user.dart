@@ -271,14 +271,19 @@ class HomeViewUserState extends State<HomeViewUser> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: ColorStyle.white,
-        body: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: [
-              getExpandedBody(),
-              otherComponent(),
-            ],
-          ),
+        body: Column(
+          children: [
+
+            SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  getExpandedBody(),
+                  otherComponent(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -327,13 +332,13 @@ class HomeViewUserState extends State<HomeViewUser> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 Icon(
-                  size: 80,
+                  size: 60,
                   Icons.car_crash,
                   color: Colors.blue,
                 ),
                 Text(
                   "Bảo hiểm xe hơi",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Colors.blue,fontSize: 7),
                 ),
               ],
             ),
@@ -370,7 +375,7 @@ class HomeViewUserState extends State<HomeViewUser> {
                 ),
                 Text(
                   "Bảo hiểm mô tô",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Colors.blue,fontSize: 7),
                 ),
               ],
             ),
@@ -400,11 +405,12 @@ class HomeViewUserState extends State<HomeViewUser> {
               ),
               Text(
                 "Bảo hiểm nhân thọ",
-                style: TextStyle(color: Colors.blue),
+                style: TextStyle(color: Colors.blue,fontSize: 7),
               ),
             ],
           ),
         ),
+
         Container(
           decoration: BoxDecoration(
             image: const DecorationImage(
@@ -429,7 +435,7 @@ class HomeViewUserState extends State<HomeViewUser> {
               ),
               Text(
                 "Bảo hiểm y tế",
-                style: TextStyle(color: Colors.blue),
+                style: TextStyle(color: Colors.blue,fontSize: 7),
               ),
             ],
           ),
