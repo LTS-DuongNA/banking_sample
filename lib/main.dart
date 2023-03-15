@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bank_application/utils/pref_util.dart';
 import 'package:bank_application/viewmodels/home_viewmodel.dart';
-import 'package:bank_application/views/home_navigation.dart';
-import 'package:bank_application/views/home_view.dart';
+import 'package:bank_application/views/admin/home_navigation.dart';
+import 'package:bank_application/views/user/home_user.dart';
+import 'package:bank_application/views/admin/home_view.dart';
+import 'package:bank_application/views/common/signin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -144,6 +146,7 @@ class _MyAppState extends State<MyApp> {
             return supportedLocales.first;
           },
           home: HomeNavigator());
+          // home: HomeViewUser());
     }
   }
 }

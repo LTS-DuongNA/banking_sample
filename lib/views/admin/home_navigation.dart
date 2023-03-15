@@ -1,5 +1,5 @@
 import 'package:bank_application/consts/colors/colors.dart';
-import 'package:bank_application/views/home_view.dart';
+import 'package:bank_application/views/admin/home_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeNavigator extends StatefulWidget {

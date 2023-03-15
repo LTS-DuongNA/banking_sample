@@ -1,18 +1,19 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bank_application/model/cmnd_data.dart';
-import 'package:bank_application/views/scan_view.dart';
+import 'package:bank_application/views/admin/scan_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../consts/colors/colors.dart';
-import '../service/observable_serivce.dart';
-import '../viewmodels/home_viewmodel.dart';
+import '../../consts/colors/colors.dart';
+import '../../service/observable_serivce.dart';
+import '../../viewmodels/home_viewmodel.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ScanOverview extends StatefulWidget {
   const ScanOverview({super.key});
@@ -26,6 +27,8 @@ class _FormWithImgState extends State<ScanOverview> {
 
   final HomeViewModel _homeViewModel = HomeViewModel();
   final _formKey = GlobalKey<FormState>();
+  TextEditingController textcontroller_email = TextEditingController();
+
   TextEditingController textcontroller_num = TextEditingController();
   TextEditingController textcontroller_name = TextEditingController();
   TextEditingController textcontroller_dob = TextEditingController();
@@ -136,7 +139,9 @@ class _FormWithImgState extends State<ScanOverview> {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(
                                     builder: (_) {
-                                      return CameraExampleHome(cameraKey: 'Front',);
+                                      return CameraExampleHome(
+                                        cameraKey: 'Front',
+                                      );
                                     },
                                     settings: RouteSettings(
                                       name: 'CameraExampleHome',
@@ -190,16 +195,18 @@ class _FormWithImgState extends State<ScanOverview> {
 
                           Navigator.of(context)
                               .push(MaterialPageRoute(
-                            builder: (_) {
-                              return CameraExampleHome(cameraKey: 'Back',);
-                            },
-                            settings: RouteSettings(
-                              name: 'CameraExampleHome',
-                            ),
-                          ))
+                                builder: (_) {
+                                  return CameraExampleHome(
+                                    cameraKey: 'Back',
+                                  );
+                                },
+                                settings: RouteSettings(
+                                  name: 'CameraExampleHome',
+                                ),
+                              ))
                               .then((value) => () {
-                            print("CameraExampleHome closed");
-                          });
+                                    print("CameraExampleHome closed");
+                                  });
                         },
                         child: Container(
                           height: 120,
@@ -207,22 +214,24 @@ class _FormWithImgState extends State<ScanOverview> {
                             border: Border.all(width: 1.0, color: Colors.black54),
                             borderRadius: const BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: (_homeViewModel.imgBack == null) ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                size: 60,
-                                Icons.linked_camera,
-                                color: Colors.blue,
-                              ),
-                              SizedBox(height: 16),
-                              Text("Chụp ảnh mặt sau")
-                            ],
-                          ) : ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.file(File(_homeViewModel.imgBack!.path)),
-                          ),
+                          child: (_homeViewModel.imgBack == null)
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      size: 60,
+                                      Icons.linked_camera,
+                                      color: Colors.blue,
+                                    ),
+                                    SizedBox(height: 16),
+                                    Text("Chụp ảnh mặt sau")
+                                  ],
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.file(File(_homeViewModel.imgBack!.path)),
+                                ),
                         ),
                       ),
                     ),
@@ -235,21 +244,12 @@ class _FormWithImgState extends State<ScanOverview> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          inputWihtTitle("Email", "...", "Nhập email", textcontroller_email, TextInputType.emailAddress),
+                          const SizedBox(height: 8),
                           inputWihtTitle("Số CMND", "000...", "Nhập số CMND", textcontroller_num, TextInputType.number),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 8),
                           inputWihtTitle("Họ và tên", "...", "Nhập họ và tên", textcontroller_name, TextInputType.text),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          // const Align(alignment: Alignment.bottomLeft, child: Text('Ngày sinh')),
-                          // const SizedBox(
-                          //   height: 7,
-                          // ),
+                          const SizedBox(height: 8),
                           TextFormField(
                             controller: textcontroller_dob, //editing controller of this TextField
                             decoration: InputDecoration(
@@ -284,24 +284,16 @@ class _FormWithImgState extends State<ScanOverview> {
                               }
                             },
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 8),
                           inputWihtTitle(
                               "Giới tính", "...", "Nhập giới tính", textcontroller_gender, TextInputType.text),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 8),
                           inputWihtTitle(
                               "Quốc tịch", "...", "Nhập quốc tịch", textcontroller_national, TextInputType.text),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 8),
                           inputWihtTitle(
                               "Nguyên quán", "...", "Nhập nguyên quán", textcontroller_home, TextInputType.text),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 8),
                           inputWihtTitle("Nơi ĐKHK thường trú", "...", "Nhập nơi ĐKHK thường trú", textcontroller_house,
                               TextInputType.text),
                         ],
@@ -315,7 +307,8 @@ class _FormWithImgState extends State<ScanOverview> {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: ColorStyle.pinkBg),
                     child: InkWell(
                       onTap: () {
-                        addImageToFirebase();
+                        // addImageToFirebase();
+                        // signUpForUser();
                       },
                       child: const Center(
                           child: Text(
@@ -342,14 +335,14 @@ class _FormWithImgState extends State<ScanOverview> {
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImages = referenceRoot.child('images');
 
-    Reference referenceImageToUploadFront = referenceDirImages.child(uniqueFileName);
-    Reference referenceImageToUploadBack = referenceDirImages.child(uniqueFileName);
+    Reference referenceImageToUploadFront = referenceDirImages.child("${uniqueFileName}_front");
+    Reference referenceImageToUploadBack = referenceDirImages.child("${uniqueFileName}_back");
 
     try {
       await referenceImageToUploadFront.putFile(File(_homeViewModel.imgFront!.path));
       _homeViewModel.imgFrontUrl = await referenceImageToUploadFront.getDownloadURL();
 
-      await referenceImageToUploadBack.putFile(File(_homeViewModel.imgFront!.path));
+      await referenceImageToUploadBack.putFile(File(_homeViewModel.imgBack!.path));
       _homeViewModel.imgBackUrl = await referenceImageToUploadBack.getDownloadURL();
 
       print("FRONT IMG URL ${_homeViewModel.imgFrontUrl}");
@@ -358,19 +351,21 @@ class _FormWithImgState extends State<ScanOverview> {
       print("FAIL ON UP LOAD IMG OR GET URL AFTER UPLOAD CAUSE OF:");
       print(e);
     }
+  }
 
-    // // Create a storage reference from our app
-    // final storageRef = FirebaseStorage.instance.ref();
-    //
-    // // Create a reference to "mountains.jpg"
-    // final mountainsRef = storageRef.child("mountains.jpg");
-    //
-    // // Create a reference to 'images/mountains.jpg'
-    // final mountainImagesRef = storageRef.child("images/mountains.jpg");
-    //
-    // // While the file names are the same, the references point to different files
-    // assert(mountainsRef.name == mountainImagesRef.name);
-    // assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
+  Future<void> signUpForUser() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: "dev.duong.nguyenanh@gmail.com",
+        password: "Okmbhu123@",
+      );
+      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+      print("Email verification sent");
+    } catch (e) {
+      print("FAIL ON AUTHEN CAUSE OF:");
+      print(e);
+    }
   }
 
   Widget inputWihtTitle(

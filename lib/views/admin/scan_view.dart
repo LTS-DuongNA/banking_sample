@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:video_player/video_player.dart';
 
-import '../api/api_repository.dart';
-import '../model/cmnd_data.dart';
-import '../service/observable_serivce.dart';
-import '../viewmodels/home_viewmodel.dart';
+import '../../api/api_repository.dart';
+import '../../model/cmnd_data.dart';
+import '../../service/observable_serivce.dart';
+import '../../viewmodels/home_viewmodel.dart';
 import 'home_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

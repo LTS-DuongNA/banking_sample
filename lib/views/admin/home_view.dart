@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:bank_application/api/api_repository.dart';
 import 'package:bank_application/utils/expansion_panel_fix.dart';
-import 'package:bank_application/views/scan_overview.dart';
-import 'package:bank_application/views/scan_view.dart';
+import 'package:bank_application/views/admin/scan_overview.dart';
+import 'package:bank_application/views/admin/scan_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../consts/images/image_path.dart';
-import '../../viewmodels/home_viewmodel.dart';
-import '../consts/colors/colors.dart';
-import '../service/ocr_service.dart';
-import '../utils/alert.dart';
-import '../utils/exit_app_scope.dart';
-import '../utils/observable_serivce.dart';
+import '../../../consts/images/image_path.dart';
+import '../../../viewmodels/home_viewmodel.dart';
+import '../../consts/colors/colors.dart';
+import '../../service/ocr_service.dart';
+import '../../utils/alert.dart';
+import '../../utils/exit_app_scope.dart';
+import '../../utils/observable_serivce.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 
