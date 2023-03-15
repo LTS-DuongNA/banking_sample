@@ -145,8 +145,9 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
+          home: SignInView());
           // home: HomeNavigator());
-          home: HomeViewUser());
+          // home: HomeViewUser());
     }
   }
 }

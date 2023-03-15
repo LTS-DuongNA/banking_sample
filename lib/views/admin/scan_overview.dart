@@ -391,6 +391,7 @@ class _FormWithImgState extends State<ScanOverview> {
 
   Future<void> signUpForUser() async {
     try {
+      //TODO: DUONGNA HARDCODE
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: "dev.duong.nguyenanh@gmail.com",
         password: "Okmbhu123@",
@@ -404,7 +405,7 @@ class _FormWithImgState extends State<ScanOverview> {
     }
   }
 
-  saveInfor() {
+  void saveInfor() {
     Map<String, dynamic> data = {
       "cmnd_num": textcontroller_num.text,
       "cmnd_name": textcontroller_name.text,
