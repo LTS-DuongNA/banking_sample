@@ -33,6 +33,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: BOHT: Them but back
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -60,6 +61,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
+                          // TODO: BOHT: Thay anh url tu network ve
                           child: Image.file(File(widget.dataDetail?.thongTinCaNhan?.urlFront ?? '')),
                         ),
                       ),

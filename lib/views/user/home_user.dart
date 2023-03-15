@@ -266,6 +266,7 @@ class HomeViewUserState extends State<HomeViewUser> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: BOHT: Giam size text (Bao hiem y te / Bao hiem o to / ...)
     return ExitAppScope(
       child: Scaffold(
         key: _scaffoldKey,

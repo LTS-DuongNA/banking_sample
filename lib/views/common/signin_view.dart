@@ -182,6 +182,7 @@ class _SignInView extends State<SignInView> {
                             if (userCredential.user != null) {
                               if (userCredential.user!.emailVerified) {
                                 /// user
+                                // TODO: BOHT: Luu useremail o day => Viewmodel.
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(
                                       builder: (_) {

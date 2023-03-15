@@ -24,7 +24,7 @@ class ListBoughtState extends State<ListBought> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _homeViewModel.getListSave();
+      // _homeViewModel.getListSave();
     });
     super.initState();
   }
@@ -35,17 +35,17 @@ class ListBoughtState extends State<ListBought> {
     super.dispose();
   }
 
-  listener() {
-    apiLeaveListListener ??= _observableService.listSaveStream.asBroadcastStream().listen((data) {
-      if (data != null) {
-        _homeViewModel.getListData(data);
-        if (!mounted) {
-          return;
-        }
-        setState(() {});
-      } else {}
-    });
-  }
+  // void listener() {
+  //   apiLeaveListListener ??= _observableService.listSaveStream.asBroadcastStream().listen((data) {
+  //     if (data != null) {
+  //       _homeViewModel.getListData(data);
+  //       if (!mounted) {
+  //         return;
+  //       }
+  //       setState(() {});
+  //     } else {}
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
