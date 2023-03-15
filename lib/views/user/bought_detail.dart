@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../../consts/colors/colors.dart';
+import '../../model/listdata_model.dart';
 import '../../service/observable_serivce.dart';
 import '../../viewmodels/home_viewmodel.dart';
 import 'package:camera/camera.dart';
@@ -16,7 +17,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BoughtDetail extends StatefulWidget {
-  const BoughtDetail({super.key});
+  final ListSaveModel? dataDetail;
+
+  const BoughtDetail({super.key, this.dataDetail});
 
   @override
   State<BoughtDetail> createState() => _BoughtDetailState();
@@ -57,7 +60,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.file(File("_homeViewModel.imgFront!.path")),
+                          child: Image.file(File(widget.dataDetail?.thongTinCaNhan?.urlFront ?? '')),
                         ),
                       ),
                     ),
@@ -71,7 +74,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.file(File("_homeViewModel.imgBack!.path")),
+                          child: Image.file(File(widget.dataDetail?.thongTinCaNhan?.urlBehind ?? '')),
                         ),
                       ),
                     ),
@@ -83,11 +86,13 @@ class _BoughtDetailState extends State<BoughtDetail> {
                   child: Column(
                     children: [
                       const SizedBox(height: 12),
-                      inputWihtTitle("Số CMND", "Nhập số CMND", "textcontroller_num", TextInputType.number),
+                      inputWihtTitle("Số CMND", "Nhập số CMND", widget.dataDetail?.thongTinCaNhan?.cmndNum ?? '',
+                          TextInputType.number),
                       const SizedBox(
                         height: 12,
                       ),
-                      inputWihtTitle("Họ và tên", "Nhập họ và tên", "textcontroller_name", TextInputType.text),
+                      inputWihtTitle("Họ và tên", "Nhập họ và tên", widget.dataDetail?.thongTinCaNhan?.cmndName ?? '',
+                          TextInputType.text),
                       const SizedBox(
                         height: 12,
                       ),
@@ -96,7 +101,8 @@ class _BoughtDetailState extends State<BoughtDetail> {
                       //   height: 7,
                       // ),
                       TextFormField(
-                        initialValue: "textcontroller_dob", //editing controller of this TextField
+                        initialValue: widget.dataDetail?.thongTinCaNhan?.cmndDob ?? '',
+                        //editing controller of this TextField
                         decoration: InputDecoration(
                           labelText: 'Ngày sinh',
                           labelStyle: const TextStyle(
@@ -115,20 +121,23 @@ class _BoughtDetailState extends State<BoughtDetail> {
                       const SizedBox(
                         height: 12,
                       ),
-                      inputWihtTitle("Giới tính", "Nhập giới tính", "textcontroller_gender", TextInputType.text),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      inputWihtTitle("Quốc tịch", "Nhập quốc tịch", "textcontroller_national", TextInputType.text),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      inputWihtTitle("Nguyên quán", "Nhập nguyên quán", "textcontroller_home", TextInputType.text),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      inputWihtTitle("Nơi ĐKHK thường trú", "Nhập nơi ĐKHK thường trú", "textcontroller_house",
+                      inputWihtTitle("Giới tính", "Nhập giới tính", widget.dataDetail?.thongTinCaNhan?.cmndGender ?? '',
                           TextInputType.text),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      inputWihtTitle("Quốc tịch", "Nhập quốc tịch", widget.dataDetail?.thongTinCaNhan?.cmndNation ?? '',
+                          TextInputType.text),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      inputWihtTitle("Nguyên quán", "Nhập nguyên quán",
+                          widget.dataDetail?.thongTinCaNhan?.cmndHome ?? '', TextInputType.text),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      inputWihtTitle("Nơi ĐKHK thường trú", "Nhập nơi ĐKHK thường trú",
+                          widget.dataDetail?.thongTinCaNhan?.cmndHouse ?? '', TextInputType.text),
                     ],
                   ),
                 ),

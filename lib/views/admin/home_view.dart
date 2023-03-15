@@ -31,7 +31,7 @@ class _HomeView extends State<HomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   StreamSubscription<String?>? apiResponseListener;
   final ScrollController _scrollController = ScrollController();
-
+ StreamSubscription<String?>? apiResponseListener1;
   APIRepository aPIRepositoryImpl = APIRepositoryImpl();
 
   double _scrollPercent = 100.0;
@@ -61,6 +61,10 @@ class _HomeView extends State<HomeView> {
   }
 
   void listenToAPIResponse() {
+     apiResponseListener1 ??= _observableService.showSaveAlertStream.asBroadcastStream().listen((data) {
+        setState(() {});
+        showDialog(context: context, builder: (context) => NotificationAlert.alert(context, data.toString()));
+      });
     apiResponseListener ??= _observableService.showAlertStream.asBroadcastStream().listen((data) {
       setState(() {});
       showDialog(context: context, builder: (context) => ErrorAlert.alert(context, data.toString()));

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../../consts/images/image_path.dart';
 import '../../../viewmodels/home_viewmodel.dart';
 import '../../consts/colors/colors.dart';
+import '../../model/listdata_model.dart';
 import '../../service/ocr_service.dart';
 import '../../utils/alert.dart';
 import '../../utils/exit_app_scope.dart';
@@ -31,7 +32,7 @@ class HomeViewUserState extends State<HomeViewUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   StreamSubscription<String?>? apiResponseListener;
   final ScrollController _scrollController = ScrollController();
-
+  StreamSubscription<List<ListSaveModel>?>? apiLeaveListListener = null;
   APIRepository aPIRepositoryImpl = APIRepositoryImpl();
 
   double _scrollPercent = 100.0;
@@ -45,6 +46,7 @@ class HomeViewUserState extends State<HomeViewUser> {
 
     //set orientation is landscape
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _homeViewModel.getListSave();
       _scrollController.addListener(() {
         _expand[0] = false;
         setState(() {});
@@ -65,11 +67,23 @@ class HomeViewUserState extends State<HomeViewUser> {
       setState(() {});
       showDialog(context: context, builder: (context) => ErrorAlert.alert(context, data.toString()));
     });
+    apiLeaveListListener ??= _observableService.listSaveStream.asBroadcastStream().listen((data) {
+      if (data != null) {
+        _homeViewModel.getListData(data);
+        print('aaaaa;${_homeViewModel.listData}');
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+      } else {}
+    });
   }
 
   @override
   void dispose() {
     apiResponseListener?.cancel();
+    apiResponseListener?.cancel();
+
     super.dispose();
   }
 
@@ -463,16 +477,16 @@ class HomeViewUserState extends State<HomeViewUser> {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(
-                  builder: (_) {
-                    return ListBought();
-                  },
-                  settings: RouteSettings(
-                    name: 'ListBought',
-                  ),
-                ))
+                      builder: (_) {
+                        return ListBought();
+                      },
+                      settings: RouteSettings(
+                        name: 'ListBought',
+                      ),
+                    ))
                     .then((value) => () {
-                  print("ListBought closed");
-                });
+                          print("ListBought closed");
+                        });
               },
               child: Stack(
                 alignment: AlignmentDirectional.center,
@@ -571,8 +585,9 @@ class HomeViewUserState extends State<HomeViewUser> {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                          "Bảo hiểm nhân thọ",
-                      style: TextStyle(fontSize: 12),),
+                        "Bảo hiểm nhân thọ",
+                        style: TextStyle(fontSize: 12),
+                      ),
                     )
                   ],
                 ),
