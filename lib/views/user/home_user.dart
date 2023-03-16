@@ -32,7 +32,7 @@ class HomeViewUserState extends State<HomeViewUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   StreamSubscription<String?>? apiResponseListener;
   final ScrollController _scrollController = ScrollController();
-  StreamSubscription<List<ListSaveModel>?>? apiLeaveListListener = null;
+  StreamSubscription<List<ThongTinCaNhanList>?>? apiLeaveListListener = null;
   APIRepository aPIRepositoryImpl = APIRepositoryImpl();
 
   double _scrollPercent = 100.0;

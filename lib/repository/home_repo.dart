@@ -18,13 +18,13 @@ class HomeRepository {
     }
   }
 
-  Future<List<ListSaveModel>> getListSaveData(dynamic params) async {
+  Future<List<ThongTinCaNhanList>?> getListSaveData(dynamic params) async {
     try {
       dynamic response = await _apiServices.getPostApiResponseWithAuth(AppUrl.listInfor, params);
       print('res list save :$response');
-      List<ListSaveModel>listSave=[];
-      listSave.add( ListSaveModel.fromJson(response));
-      return listSave;
+      ListSaveModel listSave = ListSaveModel.fromJson(response);
+      List<ThongTinCaNhanList>? listData= listSave.thongTinCaNhanList;
+      return listData;
     } catch (e) {
       print("get getListLeave erorr:${e}");
       throw e;

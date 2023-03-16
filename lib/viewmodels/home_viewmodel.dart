@@ -32,9 +32,9 @@ class HomeViewModel extends BaseViewModel {
 
   final _myRepo = HomeRepository();
   String textsRecognizedFromIng = "";
-  List<ListSaveModel?> listData = [];
+  List<ThongTinCaNhanList>? listData =[];
 
-  void getListData(List<ListSaveModel> input) {
+  void getListData(List<ThongTinCaNhanList>? input) {
     listData = input;
     notifyListeners();
   }

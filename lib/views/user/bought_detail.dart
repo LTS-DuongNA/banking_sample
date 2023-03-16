@@ -17,7 +17,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BoughtDetail extends StatefulWidget {
-  final ListSaveModel? dataDetail;
+  final ThongTinCaNhanList? dataDetail;
 
   const BoughtDetail({super.key, this.dataDetail});
 
@@ -88,7 +88,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           // TODO: BOHT: Thay anh url tu network ve
-                          child: Image.network(widget.dataDetail?.thongTinCaNhan?.urlFront ?? ''),
+                          child: Image.network(widget?.dataDetail?.urlFront ?? ''),
                         ),
                       ),
                     ),
@@ -102,7 +102,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(widget.dataDetail?.thongTinCaNhan?.urlBehind ?? ''),
+                          child: Image.network(widget?.dataDetail?.urlBehind ?? ''),
                         ),
                       ),
                     ),
@@ -114,12 +114,12 @@ class _BoughtDetailState extends State<BoughtDetail> {
                   child: Column(
                     children: [
                       const SizedBox(height: 12),
-                      inputWihtTitle("Số CMND", "Nhập số CMND", widget.dataDetail?.thongTinCaNhan?.cmndNum ?? '',
+                      inputWihtTitle("Số CMND", "Nhập số CMND", widget?.dataDetail?.cmndNum ?? '',
                           TextInputType.number),
                       const SizedBox(
                         height: 12,
                       ),
-                      inputWihtTitle("Họ và tên", "Nhập họ và tên", widget.dataDetail?.thongTinCaNhan?.cmndName ?? '',
+                      inputWihtTitle("Họ và tên", "Nhập họ và tên", widget?.dataDetail?.cmndName ?? '',
                           TextInputType.text),
                       const SizedBox(
                         height: 12,
@@ -129,7 +129,7 @@ class _BoughtDetailState extends State<BoughtDetail> {
                       //   height: 7,
                       // ),
                       TextFormField(
-                        initialValue: widget.dataDetail?.thongTinCaNhan?.cmndDob ?? '',
+                        initialValue: widget?.dataDetail?.cmndDob ?? '',
                         //editing controller of this TextField
                         decoration: InputDecoration(
                           labelText: 'Ngày sinh',
@@ -149,23 +149,23 @@ class _BoughtDetailState extends State<BoughtDetail> {
                       const SizedBox(
                         height: 12,
                       ),
-                      inputWihtTitle("Giới tính", "Nhập giới tính", widget.dataDetail?.thongTinCaNhan?.cmndGender ?? '',
+                      inputWihtTitle("Giới tính", "Nhập giới tính",widget?.dataDetail?.cmndGender ?? '',
                           TextInputType.text),
                       const SizedBox(
                         height: 12,
                       ),
-                      inputWihtTitle("Quốc tịch", "Nhập quốc tịch", widget.dataDetail?.thongTinCaNhan?.cmndNation ?? '',
+                      inputWihtTitle("Quốc tịch", "Nhập quốc tịch", widget?.dataDetail?.cmndNation ?? '',
                           TextInputType.text),
                       const SizedBox(
                         height: 12,
                       ),
                       inputWihtTitle("Nguyên quán", "Nhập nguyên quán",
-                          widget.dataDetail?.thongTinCaNhan?.cmndHome ?? '', TextInputType.text),
+                          widget?.dataDetail?.cmndHome ?? '', TextInputType.text),
                       const SizedBox(
                         height: 12,
                       ),
                       inputWihtTitle("Nơi ĐKHK thường trú", "Nhập nơi ĐKHK thường trú",
-                          widget.dataDetail?.thongTinCaNhan?.cmndHouse ?? '', TextInputType.text),
+                          widget?.dataDetail?.cmndHouse ?? '', TextInputType.text),
                     ],
                   ),
                 ),

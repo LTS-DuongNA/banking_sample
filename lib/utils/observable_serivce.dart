@@ -20,8 +20,8 @@ class ObservableService {
   Stream<String> get showSaveAlertStream => showSaveAlertController.stream;
 
 
-  final StreamController<List<ListSaveModel>?> listSaveController = StreamController<List<ListSaveModel>?>.broadcast();
-  Stream<List<ListSaveModel>?> get listSaveStream => listSaveController.stream;
+  final StreamController<List<ThongTinCaNhanList>?> listSaveController = StreamController<List<ThongTinCaNhanList>?>.broadcast();
+  Stream<List<ThongTinCaNhanList>?> get listSaveStream => listSaveController.stream;
 
 
 }

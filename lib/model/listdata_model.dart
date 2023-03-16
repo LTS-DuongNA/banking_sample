@@ -1,34 +1,34 @@
 class ListSaveModel {
   String? statusCode;
-  String? link;
   String? message;
-  ThongTinCaNhan? thongTinCaNhan;
+  List<ThongTinCaNhanList>? thongTinCaNhanList;
 
-  ListSaveModel(
-      {this.statusCode, this.link, this.message, this.thongTinCaNhan});
+  ListSaveModel({this.statusCode, this.message, this.thongTinCaNhanList});
 
   ListSaveModel.fromJson(Map<String, dynamic> json) {
     statusCode = json['StatusCode'];
-    link = json['Link'];
     message = json['Message'];
-    thongTinCaNhan = json['ThongTinCaNhan'] != null
-        ? new ThongTinCaNhan.fromJson(json['ThongTinCaNhan'])
-        : null;
+    if (json['ThongTinCaNhanList'] != null) {
+      thongTinCaNhanList = <ThongTinCaNhanList>[];
+      json['ThongTinCaNhanList'].forEach((v) {
+        thongTinCaNhanList!.add(new ThongTinCaNhanList.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['StatusCode'] = this.statusCode;
-    data['Link'] = this.link;
     data['Message'] = this.message;
-    if (this.thongTinCaNhan != null) {
-      data['ThongTinCaNhan'] = this.thongTinCaNhan!.toJson();
+    if (this.thongTinCaNhanList != null) {
+      data['ThongTinCaNhanList'] =
+          this.thongTinCaNhanList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class ThongTinCaNhan {
+class ThongTinCaNhanList {
   String? iD;
   String? cmndNum;
   String? cmndName;
@@ -46,7 +46,7 @@ class ThongTinCaNhan {
   String? urlBehindDkx;
   String? email;
 
-  ThongTinCaNhan(
+  ThongTinCaNhanList(
       {this.iD,
         this.cmndNum,
         this.cmndName,
@@ -64,7 +64,7 @@ class ThongTinCaNhan {
         this.urlBehindDkx,
         this.email});
 
-  ThongTinCaNhan.fromJson(Map<String, dynamic> json) {
+  ThongTinCaNhanList.fromJson(Map<String, dynamic> json) {
     iD = json['ID'];
     cmndNum = json['cmnd_num'];
     cmndName = json['cmnd_name'];

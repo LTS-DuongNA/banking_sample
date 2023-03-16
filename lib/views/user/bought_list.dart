@@ -56,9 +56,9 @@ class ListBoughtState extends State<ListBought> {
           ),
         ),
         body: ListView.builder(
-            itemCount: _homeViewModel.listData.length,
+            itemCount: _homeViewModel.listData?.length,
             itemBuilder: (_, int index) {
-              final item = _homeViewModel.listData.toList()[index];
+              final item = _homeViewModel.listData?.toList()[index];
               return ListTile(
                 onTap: () {
                   Navigator.of(context)
