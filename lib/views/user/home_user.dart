@@ -289,161 +289,6 @@ class HomeViewUserState extends State<HomeViewUser> {
     );
   }
 
-  Widget homeGridComponent() {
-    return GridView.count(
-      shrinkWrap: true,
-      childAspectRatio: (1 / .7),
-      primary: false,
-      padding: const EdgeInsets.all(10),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      crossAxisCount: 2,
-      children: <Widget>[
-        InkWell(
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(
-                  builder: (_) {
-                    return ScanOverview();
-                  },
-                  settings: RouteSettings(
-                    name: 'ScanOverview',
-                  ),
-                ))
-                .then((value) => () {
-                      print("ScanOverview closed");
-                    });
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage(ImagePath.iconBgImg0),
-                fit: BoxFit.cover,
-              ),
-              border: Border.all(width: 1.0, color: ColorStyle.nGray),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Icon(
-                  size: 60,
-                  Icons.car_crash,
-                  color: Colors.blue,
-                ),
-                Text(
-                  "Bảo hiểm xe hơi",
-                  style: TextStyle(color: Colors.blue,fontSize: 7),
-                ),
-              ],
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => ExampleList()),
-            // );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage(ImagePath.iconBgImg1),
-                fit: BoxFit.cover,
-              ),
-              border: Border.all(width: 1.0, color: ColorStyle.nGray),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Icon(
-                  size: 80,
-                  Icons.sports_motorsports,
-                  color: Colors.blue,
-                ),
-                Text(
-                  "Bảo hiểm mô tô",
-                  style: TextStyle(color: Colors.blue,fontSize: 7),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage(ImagePath.iconBgImg2),
-              fit: BoxFit.cover,
-            ),
-            border: Border.all(width: 1.0, color: ColorStyle.nGray),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Icon(
-                size: 80,
-                Icons.health_and_safety,
-                color: Colors.blue,
-              ),
-              Text(
-                "Bảo hiểm nhân thọ",
-                style: TextStyle(color: Colors.blue,fontSize: 7),
-              ),
-            ],
-          ),
-        ),
-
-        Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage(ImagePath.iconBgImg3),
-              fit: BoxFit.cover,
-            ),
-            border: Border.all(width: 1.0, color: ColorStyle.nGray),
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Icon(
-                size: 80,
-                Icons.add_box_rounded,
-                color: Colors.blue,
-              ),
-              Text(
-                "Bảo hiểm y tế",
-                style: TextStyle(color: Colors.blue,fontSize: 7),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget otherComponent() {
     return Column(
       children: [
@@ -508,7 +353,7 @@ class HomeViewUserState extends State<HomeViewUser> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text("Bảo hiểm xe hơi"),
+                        child: Text("Bảo hiểm xe hơi", style: TextStyle(fontSize: 12)),
                       )
                     ],
                   ),
@@ -550,7 +395,7 @@ class HomeViewUserState extends State<HomeViewUser> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("Bảo hiểm mô tô"),
+                      child: Text("Bảo hiểm mô tô", style: TextStyle(fontSize: 12)),
                     )
                   ],
                 ),
@@ -635,7 +480,7 @@ class HomeViewUserState extends State<HomeViewUser> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("Bảo hiểm y tế"),
+                      child: Text("Bảo hiểm y tế", style: TextStyle(fontSize: 12)),
                     )
                   ],
                 ),
@@ -676,7 +521,7 @@ class HomeViewUserState extends State<HomeViewUser> {
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("Khác"),
+                      child: Text("Khác", style: TextStyle(fontSize: 12)),
                     )
                   ],
                 ),

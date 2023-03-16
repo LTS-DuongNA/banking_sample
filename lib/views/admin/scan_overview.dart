@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../../consts/colors/colors.dart';
 import '../../service/observable_serivce.dart';
+import '../../utils/alert.dart';
 import '../../viewmodels/home_viewmodel.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
@@ -338,9 +339,9 @@ class _FormWithImgState extends State<ScanOverview> {
                           height: 50,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: ColorStyle.pinkBg),
                           child: InkWell(
-                            onTap: () {
-                              addImageToFirebase();
-                              signUpForUser();
+                            onTap: () async {
+                              await addImageToFirebase();
+                              await signUpForUser();
                               saveInfor();
                             },
                             child: const Center(
@@ -382,8 +383,9 @@ class _FormWithImgState extends State<ScanOverview> {
       _homeViewModel.imgBackUrl = await referenceImageToUploadBack.getDownloadURL();
 
       print("FRONT IMG URL ${_homeViewModel.imgFrontUrl}");
-      print("FRONT IMG URL ${_homeViewModel.imgBackUrl}");
+      print("BACK IMG URL ${_homeViewModel.imgBackUrl}");
     } catch (e) {
+      showDialog(context: context, builder: (context) => ErrorAlert.alert(context, "FAIL ON UP LOAD IMG OR GET URL AFTER UPLOAD CAUSE OF: $e"));
       print("FAIL ON UP LOAD IMG OR GET URL AFTER UPLOAD CAUSE OF:");
       print(e);
     }
@@ -391,15 +393,15 @@ class _FormWithImgState extends State<ScanOverview> {
 
   Future<void> signUpForUser() async {
     try {
-      //TODO: DUONGNA HARDCODE
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "dev.duong.nguyenanh@gmail.com",
-        password: "Okmbhu123@",
+        email: textcontroller_email.text,
+        password: "12345678@",
       );
       FirebaseAuth.instance.currentUser!.sendEmailVerification();
 
       print("Email verification sent");
     } catch (e) {
+      showDialog(context: context, builder: (context) => ErrorAlert.alert(context, "FAIL ON AUTHEN CAUSE OF: $e"));
       print("FAIL ON AUTHEN CAUSE OF:");
       print(e);
     }
@@ -417,10 +419,10 @@ class _FormWithImgState extends State<ScanOverview> {
       "dkx_plates": _homeViewModel.cmnd_data?.data?.dkx_plates,
       "dkx_engine": _homeViewModel.cmnd_data?.data?.dkx_engine,
       "dkx_chassis": _homeViewModel.cmnd_data?.data?.dkx_chassis,
-      "url_front": _homeViewModel.cmnd_data?.data?.url_front_dkx,
-      "url_behind": _homeViewModel.cmnd_data?.data?.url_behind_dkx,
-      "url_front_dkx": _homeViewModel.imgFrontUrl,
-      "url_behind_dkx": _homeViewModel.imgBackUrl,
+      "url_front": _homeViewModel.imgFrontUrl,
+      "url_behind": _homeViewModel.imgBackUrl,
+      "url_front_dkx": _homeViewModel.cmnd_data?.data?.url_front_dkx,
+      "url_behind_dkx": _homeViewModel.cmnd_data?.data?.url_behind_dkx,
       "email": textcontroller_email.text
     };
     _homeViewModel.SaveInfor(data, context);
