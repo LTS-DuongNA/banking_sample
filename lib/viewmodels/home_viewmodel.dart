@@ -32,7 +32,7 @@ class HomeViewModel extends BaseViewModel {
 
   final _myRepo = HomeRepository();
   String textsRecognizedFromIng = "";
-  List<ThongTinCaNhanList>? listData =[];
+  List<ThongTinCaNhanList>? listData = [];
 
   void getListData(List<ThongTinCaNhanList>? input) {
     listData = input;
@@ -59,6 +59,18 @@ class HomeViewModel extends BaseViewModel {
     };
     _myRepo.getListSaveData(params).then((value) {
       _observableService.listSaveController.sink.add(value);
+    }).onError((error, stackTrace) {
+      print('get save list erorr:$error');
+    });
+  }
+
+  getDataFromImg(String imUrl) {
+    Map<String, dynamic> params = {
+      'key': 'AIzaSyAI_sbnvkWSxI3epsV3ef-GGmg4wgASkVM ',
+    };
+
+    _myRepo.getDataFromImg(params,imUrl).then((value) {
+      print(value);
     }).onError((error, stackTrace) {
       print('get save list erorr:$error');
     });

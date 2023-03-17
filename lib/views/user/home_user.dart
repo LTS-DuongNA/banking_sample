@@ -47,6 +47,7 @@ class HomeViewUserState extends State<HomeViewUser> {
     //set orientation is landscape
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _homeViewModel.getListSave();
+      _homeViewModel.getDataFromImg(_homeViewModel.imgFrontUrl);
       _scrollController.addListener(() {
         _expand[0] = false;
         setState(() {});

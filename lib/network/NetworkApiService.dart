@@ -17,9 +17,7 @@ class NetworkApiService extends BaseApiServices {
       "Authorization": "Bearer ${PrefUtil.getValue('accessToken', "")}",
     };
     try {
-      final response = await http
-          .get(Uri.parse(url), headers: header)
-          .timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url), headers: header).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -28,7 +26,7 @@ class NetworkApiService extends BaseApiServices {
   }
 
   @override
-  Future getPostApiResponse(String url,  Map<String, dynamic> data) async {
+  Future getPostApiResponse(String url, Map<String, dynamic> data) async {
     dynamic responseJson;
     var header = {
       "Content-Type": "application/json",
@@ -37,10 +35,9 @@ class NetworkApiService extends BaseApiServices {
     };
     try {
       final msg = jsonEncode(data);
-      Response response = await post(Uri.parse(url), body: msg,headers: header)
-          .timeout(const Duration(seconds: 10));
+      Response response = await post(Uri.parse(url), body: msg, headers: header).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
-    } catch (e){
+    } catch (e) {
       print(" getPostApiResponse $e");
       throw FetchDataException('No Internet Connection');
     }
@@ -50,8 +47,7 @@ class NetworkApiService extends BaseApiServices {
   /// WITH AUTHENTICATION
 
   @override
-  Future getGetApiResponseWithAuth(
-      String url, Map<String, dynamic> params) async {
+  Future getGetApiResponseWithAuth(String url, Map<String, dynamic> params) async {
     dynamic responseJson;
 
     var header = {
@@ -61,9 +57,7 @@ class NetworkApiService extends BaseApiServices {
     };
 
     try {
-      final response = await http
-          .get(Uri.parse(url), headers: header)
-          .timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url), headers: header).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
@@ -73,6 +67,40 @@ class NetworkApiService extends BaseApiServices {
   }
 
   @override
+  Future getPostApiResponseWithAuthCustom(String url, dynamic params, String imgUrl) async {
+    dynamic responseJson;
+    Uri uri = Uri.parse(url);
+    final finalUri = uri.replace(queryParameters: params);
+    try {
+      final response = await http.post(
+        finalUri,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(<String, dynamic>{
+          'requests': [
+            {
+              "image": {
+                "source": {
+                  "imageUri":
+                      "https://cdn.tgdd.vn/Files/2021/11/22/1399723/can-cuoc-cong-dan-gan-chip-3_1280x720-800-resize.jpg"
+                }
+              },
+              "features": [
+                {"type": "TEXT_DETECTION"}
+              ]
+            }
+          ],
+        }),
+      );
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+
+    return responseJson;
+  }
+
   Future getPostApiResponseWithAuth(String url, dynamic params) async {
     dynamic responseJson;
     Uri uri = Uri.parse(url);
@@ -110,9 +138,7 @@ class NetworkApiService extends BaseApiServices {
         throw BadRequestException(response.body.toString());
       default:
         throw FetchDataException(
-            'Error accured while communicating with server' +
-                'with status code' +
-                response.statusCode.toString());
+            'Error accured while communicating with server' + 'with status code' + response.statusCode.toString());
     }
   }
 
@@ -127,9 +153,7 @@ class NetworkApiService extends BaseApiServices {
     };
 
     try {
-      final response = await http
-          .get(Uri.parse(url), headers: header)
-          .timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url), headers: header).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');

@@ -8,4 +8,6 @@ abstract class BaseApiServices {
   Future<dynamic> getGetApiResponseWithAuthnoParams(String url);
 
   Future<dynamic> getPostApiResponseWithAuth(String url, dynamic params);
+
+  Future<dynamic> getPostApiResponseWithAuthCustom(String url, dynamic params,String imgUrl);
 }
